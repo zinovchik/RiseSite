@@ -1,0 +1,124 @@
+body {
+    font-family: trebuchet ms;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h3 {
+	text-align: center;
+}
+
+     td{
+		border: 1px solid #ccc;
+		    padding: 5px 10px;
+		    text-align: center;
+		}
+		
+		#panel {
+		    background-color: silver;
+		    border: 2px solid grey;
+		    cursor: pointer;
+		    display: block;
+		    margin: 5px 0;
+		    padding: 10px;
+		    position: fixed;
+		    right: 10px;
+		    text-align: center;
+		    top: 10px;
+		    width: 100px;
+		}
+		#panel a {
+		    background-color: papayawhip;
+		    border: 1px solid gray;
+		    border-radius: 3px;
+		    box-shadow: 1px 1px 2px 0 grey;
+		    color: blue;
+		    display: inline-block;
+		    font-weight: bold;
+		    margin: 3px 0;
+		    padding: 0 5px;
+		}
+		
+		#panel a:hover {
+		    box-shadow: none;
+		}
+		
+		#terminal {
+			 background-color: #fff;
+		    border: 2px solid #777;
+		    border-radius: 8px;
+		    box-shadow: 2px 2px 5px 0 #777;
+		    display: none;
+		    height: 560px;
+		    left: 550px;
+		    padding: 20px;
+		    position: fixed;
+		    top: 100px;
+		    width: 760px;		
+		}
+		
+		#progress_list {
+		    border: 1px solid #777;
+		    height: 470px;
+		    padding: 5px;
+		    width: 750px;	
+		    overflow: scroll; 
+		}
+		
+		#terminal .close {
+			float: right;
+			width: 25px;
+			height: 25px;
+			line-height: 25px;
+			text-align: center;
+			font-weight: bold;
+			border: 1px solid #000;
+			border-radius: 2px;
+			box-shadow: 1px 1px 3px 0 #777;	
+			margin: -10px -10px 0 0;
+		}
+		
+		#terminal .close:hover {
+			box-shadow: none;	
+		}
+		
+.success {
+	color: #000;
+}
+
+.notmodified {
+	color: red;
+}
+
+#terminal #progress_line {
+	border: 1px solid #777;
+    font-weight: bold;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+#terminal #progress_line div {
+	 background-color: plum;
+    height: 20px;
+    position: absolute;
+    width: 0px;
+    top: 0;
+    z-index: 1;
+    
+}
+
+#terminal #progress_line span {
+	position: absolute;
+	z-index: 2;
+}
