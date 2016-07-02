@@ -81,21 +81,21 @@ class risesite {
   	if(strpos($key, ".")===FALSE) { 
   		if($key[(strlen($key)-1)]=='/') {$key.='index.php';} else {$key.='/index.php';}
   	}
-  	echo file_exists (($this->path.$key)) ? ' choise_rise': '';	
+  	echo file_exists (($this->path.$key)) ? ' choice_rise': '';	
   }
   
     public function type_file($key) {
-  	if(strpos($key, ".html")) {echo "choise_html";return;}
-  	elseif(strpos($key, ".HTML")) {echo "choise_html";return;}
-  	elseif(strpos($key, ".php")) {echo "choise_php";return;}
-  	elseif(strpos($key, ".css")) {echo "choise_css";return;}
-  	elseif(strpos($key, ".js")) {echo "choise_js";return;}
-  	elseif(strpos($key, ".jpg")) {echo "choise_jpg";return;}
-  	elseif(strpos($key, ".jpeg")) {echo "choise_jpg";return;}
-  	elseif(strpos($key, ".png")) {echo "choise_png";return;}
-  	elseif(strpos($key, ".gif")) {echo "choise_gif";return;}
-  	elseif(strpos($key, ".pdf")) {echo "choise_pdf";return;}
-  	else {echo "choise_else";return;}
+  	if(strpos($key, ".html")) {echo "choice_html";return;}
+  	elseif(strpos($key, ".HTML")) {echo "choice_html";return;}
+  	elseif(strpos($key, ".php")) {echo "choice_php";return;}
+  	elseif(strpos($key, ".css")) {echo "choice_css";return;}
+  	elseif(strpos($key, ".js")) {echo "choice_js";return;}
+  	elseif(strpos($key, ".jpg")) {echo "choice_jpg";return;}
+  	elseif(strpos($key, ".jpeg")) {echo "choice_jpg";return;}
+  	elseif(strpos($key, ".png")) {echo "choice_png";return;}
+  	elseif(strpos($key, ".gif")) {echo "choice_gif";return;}
+  	elseif(strpos($key, ".pdf")) {echo "choice_pdf";return;}
+  	else {echo "choice_else";return;}
   }
   
 
