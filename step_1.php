@@ -16,9 +16,11 @@ $admin = new risesite;
     1<br/><?php echo "http://web.archive.org/cdx/search/cdx?url=" . $_GET['url'] . "&output=json&limit=" . $_GET['limit']; ?>
 </h3>
 <?php
-if (!$_GET['allpage']) { //Если галочка не поставлена
+if (!isset($_GET['allpage'])) { //Если галочка не поставлена
+    $_GET['url'] = str_replace(" ","%20", $_GET['url']);
     $list_of_pages = file_get_contents("http://web.archive.org/cdx/search/cdx?url=" . $_GET['url'] . "&output=json&limit=" . $_GET['limit']);
     $list_of_pages = json_decode($list_of_pages, true);
+
 if ($list_of_pages) {
     ?>
     <table cellspacing='0' style="margin: 0 auto;">
@@ -66,7 +68,12 @@ do {
     $list_of_pages = json_decode($list_of_pages, true);
     array_shift($list_of_pages);
     rsort($list_of_pages);
-    //print_r($list_of_pages);
+
+//    echo "<pre>";
+//    print_r($list_of_pages);
+    $_GET['url'] = str_replace('www.', '', $_GET['url']);
+//    echo "</pre>";
+
     foreach ($list_of_pages as $one_page) {
         if ($one_page[4] == '200') {
 
@@ -81,9 +88,11 @@ do {
                 $tmp_url_id = '/';
             }
             $data[$tmp_url_id] = $one_page[3];
+//            if (!substr_count($one_page[2],'search')) $data[$tmp_url_id] = $one_page[3]; //исключения из списка файлов и страниц по куску имени
+
         }
         //$data[$one_page[2]] = $one_page[3];
-        //if (!substr_count($one_page[2],'search_type')) $data[$tmp_url_id] = $one_page[3]; исключения из списка файлов и страниц по куску имени
+       // if (!substr_count($one_page[2],'search')) $data[$tmp_url_id] = $one_page[3]; //исключения из списка файлов и страниц по куску имени
     }
 
     //print_r($data);
@@ -91,11 +100,16 @@ do {
 } while ($count_page > 0);
 array_multisort($data);
 
+//echo "<pre>";
+//print_r($data);
+//echo "</pre>";
+
 if ($data) {
 ?>
     <div id="panel">
         <b>Панель</b><br/><br/>
         <a id="choice_html">.html (<span></span>)</a><br/>
+        <a id="choice_htm">.htm (<span></span>)</a><br/>
         <a id="choice_php">.php (<span></span>)</a><br/>
         <a id="choice_css">.css (<span></span>)</a><br/>
         <a id="choice_js">.js (<span></span>)</a><br/>
@@ -140,27 +154,31 @@ if ($data) {
 
             //заменяем в адресе спецсимвол пробела
             //$key = str_replace("%20", " ", $key);
-            ?>
-            <tr>
-                <td><?php echo $i++; ?></td>
-                <td><?php echo $value; ?></td>
-                <td>
-                    <a href="http://web.archive.org/web/*/<?php echo $_GET['url'] . '/' . $key; ?>" target="_blank"
-                       style="<?php echo $admin->is_set_file($key); ?>"><?php echo $key; ?></a>
-                </td>
-                <td>
-                    <label>
-                        <input name="" class="checkbox <?php $admin->type_file($key);
-                        $admin->is_set_file2($key); ?>" value="<?php echo $_GET['url'] . '/' . $key; ?>"
-                               type="checkbox"/>
-                    </label>
-                </td>
-                <td>
-                    <a href="step_1.php?url=<?php echo $_GET['url'] . '/' . $key; ?>&limit=<?php echo $_GET['limit']; ?>&submit=Анализ+сайта"
-                       target="_blank">Выбрать версию</a>
-                </td>
-            </tr>
-            <?php
+//            if(strpos($key, 'content/') === false && strpos($key, 'page/') === false && strpos($key, 'pages/') === false && strpos($key, 'video/') === false ) {
+            if(1) {
+                ?>
+                <tr>
+                    <td><?php echo $i++; ?></td>
+                    <td><?php echo $value; ?></td>
+                    <td>
+                        <a href="http://web.archive.org/web/*/<?php echo $_GET['url'] . '/' . $key; ?>" target="_blank"
+                           style="<?php echo $admin->is_set_file($key, $value); ?>"><?php echo $key; ?></a>
+                        (<a href="http://rs-site.max/<?php echo $key; ?>" target="_blank"> На сайте</a>)
+                    </td>
+                    <td>
+                        <label>
+                            <input name="" class="checkbox <?php $admin->type_file($key);
+                            $admin->is_set_file2($key, $value); ?>" value="<?php echo $_GET['url'] . '/' . $key; ?>"
+                                   type="checkbox"/>
+                        </label>
+                    </td>
+                    <td>
+                        <a href="step_1.php?url=<?php echo $_GET['url'] . '/' . $key; ?>&limit=<?php echo $_GET['limit']; ?>&submit=Анализ+сайта"
+                           target="_blank">Выбрать версию</a>
+                    </td>
+                </tr>
+                <?php
+            }
             //	}
         } ?>
     </table>
